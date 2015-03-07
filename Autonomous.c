@@ -140,7 +140,7 @@ task main(){
 	position = nNxtButtonPressed; //sees if the left or right button is pressed to determine position
 	playSound(soundBeepBeep);
 
-	//waitForStart();
+	waitForStart();
 
 	if(position==1){ //ramp
 		nMotorEncoder[rightMotor]=0;

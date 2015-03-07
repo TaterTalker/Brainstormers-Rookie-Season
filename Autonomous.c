@@ -72,7 +72,6 @@ void dumpUpTop(){ //navigates to tower and drops balls
 	drive(50, 4); //drives rest of distance, otherwise it turns at end
 	stopdrive();
 	gyroTurn(3);
-	servo[ballRelease]=190; //tightens grip on dumper
 	nMotorEncoder[lift]=0; //resets lift encoder
 	motor[lift]=0;
 	servo[ballRelease] = 190; //tightens grip on dumper
@@ -256,12 +255,12 @@ task main(){
 				//just tell me what you want me to do
 				playSound(soundBeepBeep);
 
-				drive(100, 35); //does forward to allow turning
+				drive(90, 35); //does forward to allow turning
 				sleep(200); //waits for motion to stop
 				gyroTurn(-26); //turns in direction to just miss center structure
-				drive(100, 60); // drives to right in front of center structure
+				drive(95, 65); // drives to right in front of center structure
 				sleep(200); //waits for motion to stop
-				gyroTurn(125); //turns towards structure
+				gyroTurn(130); //turns towards structure
 				drive(-20, 10);
 				sleep(500); //waits for motion to stop
 				dumpUpTop();//runs dump function

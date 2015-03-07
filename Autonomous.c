@@ -56,7 +56,7 @@ void dumpUpTop(){ //navigates to tower and drops balls
 	}
 
 	while(SensorValue(forward) > 35 || SensorValue(forward)==0) { //same thing as before, except used ultra sonic to get right range
-		if(SensorValue(forward)==255){
+		if(SensorValue(forward)==255||SensorValue(forward)<10){
 			motor[leftMotor]=-20;
 			motor[rightMotor]=-20
 			continue;
@@ -77,6 +77,14 @@ void dumpUpTop(){ //navigates to tower and drops balls
 	motor[lift]=0;
 	servo[ballRelease] = 190; //tightens grip on dumper
 	while(nMotorEncoder[lift]<2900){ //raises lift
+		if(SensorValue(forward)==255||SensorValue(forward)<20){
+			motor[leftMotor]=-20;
+			motor[rightMotor]=-20;
+			motor[lift]=0;
+			continue;
+		}
+			motor[leftMotor]=0;
+			motor[rightMotor]=0;
 		motor[lift]=-100;
 		nxtDisplayTextLine(5, "%d", nMotorEncoder[lift]);
 	}
@@ -240,8 +248,7 @@ task main(){
 			dumpUpTop(); //runs dump function
 
 		}
-		if (Irangle == 3 || irangle == 5){
-			if (irRight.acValues[1] < 20 || irRight.acValues[2] !=0) {
+		else{
 				nxtdisplayTextLine(4, "2:%4d %4d", irRight.dcValues[1], irRight.acValues[1]);
 				nxtdisplayTextLine(4, "3:%4d %4d", irRight.dcValues[2], irRight.acValues[2]);
 				//what the heck is this monstrosity? ^ why 2 lines of code, it will just overlap, whoever is programming this is a moron
@@ -258,7 +265,6 @@ task main(){
 				drive(-20, 10);
 				sleep(500); //waits for motion to stop
 				dumpUpTop();//runs dump function
-			}
 		}
 	}
 }

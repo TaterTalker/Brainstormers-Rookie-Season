@@ -9,7 +9,7 @@ void drive (int power, float inches) {
 	nMotorEncoder[leftMotor]=0;
 
 	while(abs(nMotorEncoder[rightMotor]) < 110*inches || abs(nMotorEncoder[leftMotor]) < 110*inches){
-		int dif=nMotorEncoder[rightMotor]-nMotorEncoder[leftMotor];
+		int dif=(nMotorEncoder[rightMotor]-nMotorEncoder[leftMotor])*power;
 		motor[rightMotor] = power-dif;
 		motor[leftMotor] = power+dif;
 	}

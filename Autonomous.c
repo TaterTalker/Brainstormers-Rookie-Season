@@ -56,6 +56,11 @@ void dumpUpTop(){ //navigates to tower and drops balls
 	}
 
 	while(SensorValue(forward) > 35 || SensorValue(forward)==0) { //same thing as before, except used ultra sonic to get right range
+		if(SensorValue(forward)==255){
+			motor[leftMotor]=-20;
+			motor[rightMotor]=-20
+			continue;
+		}
 		readSensor(&irRight);
 		nxtDisplayTextLine(1, "IR: %d	Ultra: %d", irRight.acDirection, SensorValue(forward));
 		int right = irRight.acDirection;
@@ -88,7 +93,7 @@ void dumpUpTop(){ //navigates to tower and drops balls
 		servo[ballRelease]=190;
 	}
 
-	while(!TSreadState(touch)) { //lowers lift slower at end to avoid lift jams
+	while(nMotorEncoder[lift]>60) { //lowers lift slower at end to avoid lift jams
 		motor[lift]=25;
 	}
 
@@ -128,7 +133,7 @@ task main(){
 	position = nNxtButtonPressed; //sees if the left or right button is pressed to determine position
 	playSound(soundBeepBeep);
 
-	waitForStart();
+	//waitForStart();
 
 	if(position==1){ //ramp
 		nMotorEncoder[rightMotor]=0;
@@ -197,7 +202,7 @@ task main(){
 		stopdrive(); //stops
 
 		servo[grabber1]=45; //releases tube
-		while(nMotorEncoder[lift] > 100) {
+		while(nMotorEncoder[lift] > 540) {
 			motor[lift] = 20;
 		}
 		servo[servo3]=190;

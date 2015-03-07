@@ -7,16 +7,11 @@
 void drive (int power, float inches) {
 	nMotorEncoder[rightMotor]=0;
 	nMotorEncoder[leftMotor]=0;
-	if (power>0){
-			while(nMotorEncoder[rightMotor] < 110*inches || nMotorEncoder[leftMotor] < 110*inches){
-		motor[rightMotor] = power;
-		motor[leftMotor] = power;
-	}
-	}else{
-			while(nMotorEncoder[rightMotor] > -110*inches || nMotorEncoder[leftMotor] > -110*inches){
-		motor[rightMotor] = power;
-		motor[leftMotor] = power;
-	}
+
+	while(abs(nMotorEncoder[rightMotor]) < 110*inches || abs(nMotorEncoder[leftMotor]) < 110*inches){
+		int dif=nMotorEncoder[rightMotor]-nMotorEncoder[leftMotor];
+		motor[rightMotor] = power-dif;
+		motor[leftMotor] = power+dif;
 	}
 	motor[rightMotor] = 0;                       // motor B is stopped at a power level of 0
 	motor[leftMotor] = 0;                       // motor C is stopped at a power level of 0

@@ -220,7 +220,7 @@ task main(){
 			readSensor(&irRight);
 		}
 		Irangle = irRight.acDirection; //determines position, 4=3, 3=2, something else=1
-		if(Irangle==4*irRight.enhStrength>45){ //just drives and dumps balls
+		if(Irangle==4&&irRight.enhStrength>45){ //just drives and dumps balls
 			dumpUpTop(); //runs dump function
 		}
 

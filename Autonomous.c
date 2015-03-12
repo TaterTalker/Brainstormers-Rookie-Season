@@ -69,13 +69,13 @@ void dumpUpTop(){ //navigates to tower and drops balls
 		motor[leftMotor]=15+dif;
 		motor[rightMotor]=15-dif;
 	}
-	drive(50, 4); //drives rest of distance, otherwise it turns at end
+	drive(50, 4.1); //drives rest of distance, otherwise it turns at end
 	stopdrive();
 	gyroTurn(3);
 	nMotorEncoder[lift]=0; //resets lift encoder
 	motor[lift]=0;
 	servo[ballRelease] = 190; //tightens grip on dumper
-	while(nMotorEncoder[lift]<2900){ //raises lift
+	while(nMotorEncoder[lift]<3100){ //raises lift
 		if(SensorValue(forward)==255||SensorValue(forward)<20){
 			motor[leftMotor]=-20;
 			motor[rightMotor]=-20;
@@ -236,7 +236,7 @@ task main(){
 			dumpUpTop(); //runs dump function
 		}
 
-		if (Irangle == 3 && irRight.acValues[1] > 20) { //drives to get straight on and drives to dump balls
+		if else(Irangle == 3 && irRight.acValues[1] > 20) { //drives to get straight on and drives to dump balls
 			nxtdisplayTextLine(4, "2:%4d %4d", irRight.dcValues[1], irRight.acValues[1]); // sense ac value to determine whether center goal is in position 2 or 3
 			drive(100, 35); // moves forward to allow turning
 			sleep(200); //waits for motion to stop
@@ -249,10 +249,11 @@ task main(){
 		}
 		else{
 				nxtdisplayTextLine(4, "2:%4d %4d", irRight.dcValues[1], irRight.acValues[1]);
-				nxtdisplayTextLine(4, "3:%4d %4d", irRight.dcValues[2], irRight.acValues[2]);
+				nxtdisplayTextLine(5, "3:%4d %4d", irRight.dcValues[2], irRight.acValues[2]);
 				//what the heck is this monstrosity? ^ why 2 lines of code, it will just overlap, whoever is programming this is a moron
 				//give up while you're behind
 				//just tell me what you want me to do
+				//chiiiill
 				playSound(soundBeepBeep);
 
 				drive(90, 35); //does forward to allow turning

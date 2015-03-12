@@ -74,7 +74,7 @@ task main()
 
 		if(joy1Btn(7)==1){
 			speed /=10;
-			xspeed /=5;
+			xspeed /=15;
 		}
 
 		motor[rightMotor]=(speed-xspeed); //speed is offset so we can turn, then is fed to the motors
